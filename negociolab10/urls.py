@@ -20,12 +20,15 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.contrib.auth import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inventario/',include('inventario.urls')),
-
+    # path('',include('inventario.urls')),
+    path('login/', views.LoginView.as_view(template_name="login.html"), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
 ]
 
 # Agregar la configuración para servir archivos multimedia en el servidor de desarrollo

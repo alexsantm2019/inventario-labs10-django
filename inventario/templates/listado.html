@@ -1,17 +1,23 @@
 {% extends "base.html" %} {% block titulo %} Listado de mis productos {% endblock titulo %} {% block contenido %}
 <div class="container text-center">
-    <h1>Lista de Productos</h1>
+
+    <h4>Lista de Productos</h4>
     {% comment %} Usaremos codigo python en HTML, para poder TRABAJAR con los datos recibidos Tenemos 2 tipos de codigo: renderizado y de ejecucion *Ejecucion* : {% *tipo de bloque de ejecucion* %} => if, else, for, while los bloques de ejecucion LLEVAN UN
     CIERRE Renderizado: {{}} => renderizamos para que se VISUALICE en el html {% endcomment %}
 
 
 
     <!-- Button trigger modal -->
+
+
     <div class="w-100 d-flex justify-content-end mb-2">
+        {% if user.is_authenticated %}
         <button type="button" class="btn btn-success btn-sm float-right" data-bs-toggle="modal" data-bs-target="#cargarproducto">
             Cargar Producto
-        </button>
+        </button> {% else %}
+        <span class="text-muted"> Debe loguearse</span> {% endif %}
     </div>
+
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-bordered table-sm text-center">
@@ -36,6 +42,8 @@
                     </td>
                     <td class="align-middle">{{producto.origen_producto}}</td>
                     <td class="align-middle">
+
+                        {% if user.is_authenticated %}
                         <a style="text-decoration: none;" href="{% url 'editar' producto.id %}">
                             <button class="btn btn-success btn-sm">
                                 Editar 
@@ -44,6 +52,10 @@
                         <a style="text-decoration: none;" href="{% url 'eliminar' producto.id %}">
                             <button class="btn btn-danger btn-sm">Eliminar</button>
                         </a>
+                        {% else %}
+                        <span class="text-muted"> Debe loguearse</span> {% endif %}
+
+
 
                     </td>
                 </tr>

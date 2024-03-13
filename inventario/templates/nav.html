@@ -1,16 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light px-2" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="{% url 'listado' %}">LAB10</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'listado' %}">Login</a>
-            </li>
-            <!-- <li class="nav-item active">
-                <a class="nav-link" href="{% url 'listado' %}">Listado de Productos</a>
-            </li> -->
-        </ul>
+
+    <div class="row w-100">
+        <div class="col-lg-1">
+            <a class="navbar-brand" href="{% url 'listado' %}">LAB10</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="col-lg-10 text-center">
+            {% if user.is_authenticated %}
+            <span class=" h3 ml-3"> Bienvenido, <b>{{user.first_name}}</b></span> {% endif %}
+        </div>
+        <div class="col-lg-1 text-right">
+            {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark mr-3">Logout</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}">
+                <button type="button" class="btn btn-primary">Login</button>
+            </a>
+            {% endif %}
+        </div>
     </div>
+
 </nav>

@@ -125,5 +125,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# IMAGENES
 MEDIA_URL = '/media/' # Ruta de guardado
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# REDIRECCIONES PARA LOGIN Y LOGOUT
+LOGIN_REDIRECT_URL='listado'
+LOOUT_REDIRECT_URL='listado'

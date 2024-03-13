@@ -5,6 +5,7 @@ import os
 from django.dispatch import receiver
 from django.conf import settings
 from .forms import ProductoForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 #Creamos LOS CONTROLADORES para administrar nuestra LOGICA, y nuestras VISTAS
@@ -46,7 +47,7 @@ def listarProductos(request):
 #     producto.save()
 #     return redirect('listado')
 
-    
+@login_required    
 def crearProducto(request):
     if request.method == 'POST':
         formulario = ProductoForm(request.POST, request.FILES)  # Agrega request.FILES para manejar archivos adjuntos como imágenes
@@ -117,6 +118,7 @@ def crearProducto(request):
 #         producto_a_editar.save()
 #         return redirect('listado')
 
+@login_required
 def editarProducto(request, id):
     producto = get_object_or_404(Productos, id=id)
 
@@ -136,7 +138,7 @@ def editarProducto(request, id):
             contexto = {'formulario': formulario, 'producto': producto}
             return render(request, 'edit.html', contexto) 
         
-    
+@login_required
 def eliminarProducto(request,id):
     #buscar cual es el producto que quiero eliminar!
     try:
@@ -153,6 +155,7 @@ def eliminarProducto(request,id):
     producto_a_eliminar.delete()
     return redirect('listado')
 
+@login_required
 def crearCategoria(request):
     #Capturar el NOMBRE de la CATEGORIA proveniente del POST
     nombre = request.POST['nombre_categoria'].capitalize()
